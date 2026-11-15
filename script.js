@@ -50,6 +50,22 @@ function openApplication(title) {
   });
 }
 
+function openPartnerForm() {
+  openDialog(`<p class="eyebrow">ПАРТНЁРАМ CRE8</p><h2 id="dialogTitle">Расскажите о проекте</h2>
+    <p class="dialog-description">Оставьте демонстрационный запрос — так будет выглядеть форма для рекламных партнёров.</p>
+    <form class="application-form" id="partnerForm">
+      <label>Компания или бренд<input name="company" required placeholder="Название бренда"></label>
+      <label>Контактное лицо<input name="name" autocomplete="name" required placeholder="Ваше имя"></label>
+      <label>Рабочий email<input name="email" type="email" autocomplete="email" required placeholder="name@company.com"></label>
+      <button class="button button-dark" type="submit">Подготовить запрос <span>↗</span></button>
+    </form>
+    <p class="demo-note">Форма пока демонстрационная: данные не отправляются и не сохраняются.</p>`);
+  document.querySelector('#partnerForm').addEventListener('submit', event => {
+    event.preventDefault();
+    openDialog(`<p class="eyebrow">ДЕМО-РЕЖИМ</p><h2 id="dialogTitle">Запрос готов</h2><p class="dialog-description">Форма проверена. Чтобы команда CRE8 получала обращения, нужно подключить почту или сервис приёма заявок.</p><button class="button button-dark dialog-action" type="button" data-close-dialog>Понятно</button>`);
+  });
+}
+
 filterButtons.forEach(button => button.addEventListener('click', () => {
   activeFilter = button.dataset.filter;
   filterButtons.forEach(item => item.classList.toggle('active', item === button));
@@ -85,6 +101,8 @@ nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
 document.querySelector('[data-open-login]').addEventListener('click', () => {
   openDialog(`<p class="eyebrow">ЛИЧНЫЙ КАБИНЕТ</p><h2 id="dialogTitle">Скоро увидимся!</h2><p class="dialog-description">Вход и регистрация пока не подключены. Для реальных аккаунтов нужна серверная часть сайта.</p><a class="button button-dark dialog-action" href="#contests" data-close-link>Посмотреть конкурсы <span>↗</span></a>`);
 });
+
+document.querySelector('[data-open-partner]').addEventListener('click', openPartnerForm);
 
 document.querySelector('#subscribeForm').addEventListener('submit', event => {
   event.preventDefault();
